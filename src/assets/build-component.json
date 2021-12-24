@@ -1,0 +1,71 @@
+{
+  "application": {
+      "pages": [
+        {
+          "id": "buildQuestion",
+          "form": [
+            {
+              "repeat": false,
+              "questions": [
+                {
+                  "id": "id",
+                  "type": "text",
+                  "label": {
+                    "text": "Input ID"
+                  },
+                  "validation": {
+                    "required": true
+                  }
+                },
+                {
+                  "id": "type",
+                  "type": "select",
+                  "label": {
+                    "text": "Input Type"
+                  },
+                  "validation": {
+                    "required": true
+                  },
+                  "options": [
+                    {
+                      "value": "text",
+                      "display": "Text Input"
+                    },
+                    {
+                      "value": "textarea",
+                      "display": "Text Area Input"
+                    },
+                    {
+                      "value": "number",
+                      "display": "Number Input"
+                    },
+                    {
+                      "value": "select",
+                      "display": "Select Input"
+                    },
+                    {
+                      "value": "checkbox",
+                      "display": "Checkbox Input"
+                    },
+                    {
+                      "value": "date",
+                      "display": "Date Input"
+                    },
+                    {
+                      "value": "radio",
+                      "display": "Radio Input"
+                    }
+                  ]
+                }
+              ],
+              "display": "always"
+            }
+          ]
+        }
+      ]
+  },
+  "meta": {
+    "applicationId": "1",
+    "description": "A form that provides all the inputs to generate a Question JSON"
+  }
+}

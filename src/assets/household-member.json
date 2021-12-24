@@ -1,0 +1,48 @@
+{
+  "id": 2,
+  "description": "collects household members",
+  "pages": [
+    {
+      "sections": [
+        {
+          "repeat": {
+            "style": "list"
+          },
+          "questions": {
+            "fName": {
+              "id": "fName",
+              "type": "text",
+              "label": {
+                "text": "First Name"
+              },
+              "validation": {
+                "required": true
+              }
+            },
+            "lName": {
+              "id": "lName",
+              "type": "text",
+              "label": {
+                "text": "Last Name"
+              },
+              "validation": {
+                "required": true
+              }
+            },
+            "birthday": {
+              "id": "birthday",
+              "type": "date",
+              "label": {
+                "text": "Birthdate"
+              },
+              "validation": {
+                "dateBefore": "$today"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
