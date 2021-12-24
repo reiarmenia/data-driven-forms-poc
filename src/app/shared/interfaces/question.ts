@@ -1,5 +1,6 @@
 import {IQuestionValidation} from './question-validation';
 import {IQuestionOption} from './question-option';
+import {IConditions} from './conditions';
 
 export interface IQuestion {
 
@@ -16,5 +17,6 @@ export interface IQuestion {
 
   validation?: IQuestionValidation;
   options?: IQuestionOption[];
+  shouldDisplay?: IConditions;
 
 }

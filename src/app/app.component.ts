@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Question} from './shared/models/question';
 import {FormBuilder} from '@angular/forms';
 
 @Component({
@@ -9,13 +8,13 @@ import {FormBuilder} from '@angular/forms';
 })
 export class AppComponent {
 
-  questionTest = new Question(null, {
-    id: 'itemInFridge',
-    type: 'text',
-    label: {text: 'An Item In Your Fridge'},
-  });
-
-  questionControl = this.questionTest.createFormControl(this.fb)
+  // questionTest = new Question(null, {
+  //   id: 'itemInFridge',
+  //   type: 'text',
+  //   label: {text: 'An Item In Your Fridge'},
+  // });
+  //
+  // questionControl = this.questionTest.createFormControl(this.fb)
 
   constructor(
     private fb: FormBuilder

@@ -1,13 +1,14 @@
 import {IQuestionGroup} from './question-group';
+import {IConditions} from './conditions';
 
-export interface Section {
+export interface ISection {
 
   id: string;
   repeat?: {
     style: 'list' | 'table';
   }
   questions: IQuestionGroup;
-
+  shouldDisplay?: IConditions;
 
 
 }
