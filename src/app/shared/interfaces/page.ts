@@ -1,5 +1,5 @@
 import {ISection} from './section';
-import {IConditions} from './conditions';
+import {IStatements} from './statments';
 
 export interface IPage {
 
@@ -8,6 +8,6 @@ export interface IPage {
 
   sections: ISection[];
   order?: number;
-  shouldDisplay?: IConditions;
+  shouldDisplay?: IStatements;
 
 }

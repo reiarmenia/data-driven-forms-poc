@@ -1,7 +1,7 @@
-import {Question} from '../models/question';
+import {IQuestion} from './question';
 
 export interface IQuestionGroup {
 
-  [questionId: string]: Question<unknown>
+  [questionId: string]: IQuestion;
 
 }

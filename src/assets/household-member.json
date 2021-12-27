@@ -3,10 +3,13 @@
   "description": "collects household members",
   "pages": [
     {
+      "id": "householdMembers",
       "sections": [
         {
           "repeat": {
-            "style": "list"
+            "style": "list",
+            "minEntries": 1,
+            "maxEntries": 20
           },
           "questions": {
             "fName": {
@@ -37,6 +40,29 @@
               },
               "validation": {
                 "dateBefore": "$today"
+              }
+            },
+            "income": {
+              "id": "income",
+              "type": "number",
+              "label": {
+                "text": "Annual Income"
+              },
+              "validation": {
+                "required": true,
+                "min": 0,
+                "max": 999999999
+              },
+              "shouldDisplay": {
+                "check": "all",
+                "statements": [
+                  {
+                    "sibling": "birthday",
+                    "conditions": {
+                      "isAgeGreaterOrEqual": 18
+                    }
+                  }
+                ]
               }
             }
           }
