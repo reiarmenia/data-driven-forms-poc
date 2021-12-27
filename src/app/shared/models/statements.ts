@@ -3,10 +3,9 @@ import {Statement} from './statement';
 import {AbstractControl} from '@angular/forms';
 import {combineLatest} from 'rxjs';
 import {ConditionsFunction} from '../types/conditions-function';
-import {stat} from 'fs';
 
 export class Statements implements IStatements {
-  public check: "one" | "all";
+  public check?: "one" | "all";
   public statements: Statement[];
 
   constructor(statements: IStatements) {

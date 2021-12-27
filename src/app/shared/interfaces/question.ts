@@ -17,6 +17,6 @@ export interface IQuestion {
 
   validation?: IQuestionValidation;
   options?: IQuestionOption[];
-  shouldDisplay?: IStatements;
+  shouldAsk?: IStatements;
 
 }

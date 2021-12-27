@@ -9,7 +9,7 @@ export class Question implements IQuestion {
   public type: "text" | "textarea" | "number" | "select" | "checkbox" | "date" | "radio";
   public label?: { text: string; position?: "before" | "after" };
   public options?: IQuestionOption[];
-  public shouldDisplay?: Statements;
+  public shouldAsk?: Statements;
   public validation?: IQuestionValidation;
 
   constructor(question: IQuestion) {
@@ -17,7 +17,8 @@ export class Question implements IQuestion {
     this.type = question.type;
     this.label = question.label;
     this.options = question.options;
-    this.shouldDisplay = question.shouldDisplay ? new Statements(question.shouldDisplay) : undefined;
+    this.shouldAsk = question.shouldAsk ? new Statements(question.shouldAsk) : undefined;
+
     this.validation = question.validation;
   }
 

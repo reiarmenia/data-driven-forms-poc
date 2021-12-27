@@ -1,17 +1,16 @@
 import {IStatement} from '../interfaces/statement';
-import {QuestionTypePropTypes} from '../types/question-type-prop-types';
 import {IConditions} from '../interfaces/conditions';
 import {ICustomConditions} from '../interfaces/custom-conditions';
 import {ConditionsFunction} from '../types/conditions-function';
 import {BASE_CONDITIONS_MAP} from '../maps/conditions';
-import {AbstractControl, FormControl} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 export class Statement implements IStatement{
 
   public sibling: string;
   public conditions?: IConditions;
   public customConditions?: ICustomConditions;
-  public check: 'one' | 'all';
+  public check?: 'one' | 'all';
 
   constructor(statement: IStatement) {
 
