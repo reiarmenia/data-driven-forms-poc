@@ -4,5 +4,4 @@ export interface IApplication {
   id: string;
   description: string;
   pages: IPage[];
-  flattenPages?: boolean;
 }
