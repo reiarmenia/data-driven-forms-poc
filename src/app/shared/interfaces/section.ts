@@ -10,7 +10,8 @@ export interface ISection {
     maxEntries?: number;
   };
   questions: IQuestionGroup;
-  shouldDisplay?: IStatements;
+  shouldAsk?: IStatements;
+  retainWhenNotAsked?: boolean;
 
 
 }

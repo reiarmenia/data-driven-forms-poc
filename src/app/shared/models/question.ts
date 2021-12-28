@@ -2,10 +2,12 @@ import {IQuestion} from '../interfaces/question';
 import {IQuestionOption} from '../interfaces/question-option';
 import {IQuestionValidation} from '../interfaces/question-validation';
 import {Statements} from './statements';
-import {ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, ValidatorFn} from '@angular/forms';
 import {ICustomValidation} from '../interfaces/custom-validation';
 import {NormalizedValidator} from '../types/normalized-validator';
 import {BASE_VALIDATORS_MAP} from '../maps/validators';
+import {ConditionsFunction} from '../types/conditions-function';
+import {combineLatest, Observable, tap} from 'rxjs';
 
 export class Question implements IQuestion {
 
@@ -25,12 +27,17 @@ export class Question implements IQuestion {
     this.label = question.label;
     this.options = question.options;
     this.shouldAsk = question.shouldAsk ? new Statements(question.shouldAsk) : undefined;
+    this.retainWhenNotAsked = question.retainWhenNotAsked;
     this.validation = question.validation;
     this.customValidation = question.customValidation;
     this.isFlag = question.isFlag;
   }
 
-  private getValidators(customValidators?: Map<string, NormalizedValidator>): ValidatorFn[] {
+  public control(initialValue: any, formBuilder: FormBuilder, customValidators?: Map<string, NormalizedValidator>): FormControl {
+    return formBuilder.control(initialValue, this.getValidators(customValidators));
+  }
+
+  public getValidators(customValidators?: Map<string, NormalizedValidator>): ValidatorFn[] {
 
     const validatorMap: Map<string, NormalizedValidator> = new Map<string, NormalizedValidator>([
       ...BASE_VALIDATORS_MAP,
@@ -60,6 +67,28 @@ export class Question implements IQuestion {
     return validators;
   }
 
+  public getShouldAsk(control: AbstractControl, customConditions?: Map<string, ConditionsFunction>): boolean {
+    if(!this.shouldAsk) return true;
+    return this.shouldAsk.checkStatements(control, customConditions);
+  }
+
+  public changeEvents(control: FormControl, customConditions?: Map<string, ConditionsFunction>): Observable<any> | undefined {
+
+    const events: Observable<any>[] = [];
+
+    if (this.shouldAsk) {
+      events.push(this.shouldAsk.getValueChanges(control).pipe(
+        tap(() => {
+          if (!this.getShouldAsk(control, customConditions) && !this.retainWhenNotAsked){
+            control.setValue(null);
+          }
+        })
+      ))
+    }
+
+    return events.length > 0 ? combineLatest([...events]) : undefined;
+
+  }
 
 }
 
