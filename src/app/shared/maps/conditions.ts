@@ -18,9 +18,9 @@ export const BASE_CONDITIONS_MAP = new Map<string, ConditionsFunction>([
   ['isDateOn', SupportedLogicUtils.isDateOn],
   ['isDateOnOrBefore', SupportedLogicUtils.isDateOnOrBefore],
   ['isDateOnOrAfter', SupportedLogicUtils.isDateOnOrAfter],
-  ['isAgeGreaterThan', SupportedLogicUtils.isAgeGreater],
-  ['isAgeLessThan', SupportedLogicUtils.isAgeLess],
-  ['isAgeEqualTo', SupportedLogicUtils.isAgeEqual],
+  ['isAgeGreaterThan', SupportedLogicUtils.isAgeGreaterThan],
+  ['isAgeLessThan', SupportedLogicUtils.isAgeLessThan],
+  ['isAgeEqualTo', SupportedLogicUtils.isAgeEqualTo],
   ['isAgeGreaterOrEqual', SupportedLogicUtils.isAgeGreaterOrEqual],
   ['isAgeLessOrEqual', SupportedLogicUtils.isAgeLessOrEqual],
-])
+]);

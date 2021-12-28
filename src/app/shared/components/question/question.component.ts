@@ -12,15 +12,16 @@ export class QuestionComponent implements OnInit {
   @Input() config!: IQuestion;
   @Input() control!: FormControl;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     if (!this.config) {
-      throw new TypeError('Question component must be passed a Question Configuration.')
+      throw new TypeError('Question component must be passed a Question Configuration.');
     }
 
     if (!this.control) {
-      throw new TypeError('Question component must be passed a FormControl')
+      throw new TypeError('Question component must be passed a FormControl');
     }
 
   }

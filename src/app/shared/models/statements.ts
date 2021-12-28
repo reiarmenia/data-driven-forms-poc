@@ -5,20 +5,20 @@ import {combineLatest} from 'rxjs';
 import {ConditionsFunction} from '../types/conditions-function';
 
 export class Statements implements IStatements {
-  public check?: "one" | "all";
+  public check?: 'one' | 'all';
   public statements: Statement[];
 
   constructor(statements: IStatements) {
     this.check = statements.check;
-    this.statements = statements.statements.map(_ => new Statement(_))
+    this.statements = statements.statements.map(_ => new Statement(_));
   }
 
   public getControls(control: AbstractControl): (AbstractControl | null)[] {
-    return this.statements.map(_ => _.getArgControl(control))
+    return this.statements.map(_ => _.getArgControl(control));
   }
 
   public getValueChanges(control: AbstractControl) {
-    return combineLatest([...(this.getControls(control).filter(_ => _ !== null).map(_ => _?.valueChanges))])
+    return combineLatest([...(this.getControls(control).filter(_ => _ !== null).map(_ => _?.valueChanges))]);
   }
 
   public checkStatements(control: AbstractControl, customConditions?: Map<string, ConditionsFunction>) {
@@ -28,9 +28,10 @@ export class Statements implements IStatements {
       return statement.checkStatement(statementValue, customConditions);
     });
 
-    return statementChecks.includes(true) ? this.check === 'one' : statementChecks.every(_ => _);
+    return this.check === 'one' ?
+      statementChecks.includes(true) : // If check is explicitly 'one' see if any are true.
+      statementChecks.every(_ => _); // default check; makes sure all items are true.
 
   }
-
 
 }

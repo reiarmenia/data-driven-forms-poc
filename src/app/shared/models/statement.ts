@@ -5,7 +5,7 @@ import {ConditionsFunction} from '../types/conditions-function';
 import {BASE_CONDITIONS_MAP} from '../maps/conditions';
 import {AbstractControl} from '@angular/forms';
 
-export class Statement implements IStatement{
+export class Statement implements IStatement {
 
   public sibling: string;
   public conditions?: IConditions;
@@ -17,7 +17,7 @@ export class Statement implements IStatement{
     this.sibling = statement.sibling;
     this.conditions = statement.conditions;
     this.customConditions = statement.customConditions;
-    this.check  = statement.check;
+    this.check = statement.check;
 
   }
 
@@ -25,12 +25,12 @@ export class Statement implements IStatement{
 
     let sibling: AbstractControl | null = null;
 
-    if (control.get(this.sibling)){
-      sibling = control.get(this.sibling)
+    if (control.get(this.sibling)) {
+      sibling = control.get(this.sibling);
     } else {
       let check = control.parent;
       while (check) {
-        if(check && check.get(this.sibling)) {
+        if (check && check.get(this.sibling)) {
           sibling = check.get(this.sibling);
         } else {
           check = check.parent || null;
@@ -54,38 +54,25 @@ export class Statement implements IStatement{
 
     let conditionResults: (boolean | undefined)[] = [];
 
-    if (this.conditions) {
-      Object.keys(this.conditions).forEach(key => {
-        // @ts-ignore
-        const compare = this.conditions[key];
-        const fn = conditionsMap.get(key);
-        if (!fn) {
-          console.warn(`Condition ${key} does not have a registered evaluation function.`)
-        }else{
-          if(compare) {
-            conditionResults.push(fn(argValue, compare))
+    if (this.conditions || this.customConditions) {
+      Object.entries({
+        ...(this.conditions ? this.conditions : {}),
+        ...(this.customConditions ? this.customConditions : {})
+      }) // Combine conditions and custom conditions and get their entries.
+        .forEach(([key, compareValue]: [string, any]) => { // Iterate over entries with key and compare value.
+          const conditionFunction = conditionsMap.get(key);
+          if (!conditionFunction) {
+            console.warn(`Condition ${key} does not have a registered evaluation function, skipping.`);
+            return; // If no condition function found skip;
           }
-        }
-      })
+          conditionResults.push(conditionFunction(argValue, compareValue)); // Run condition and push results.
+        });
     }
 
-    if (this.customConditions) {
-      Object.keys(this.customConditions).forEach(key => {
-        // @ts-ignore
-        const compare = this.customConditions[key];
-        const fn = conditionsMap.get(key);
-        if (!fn) {
-          console.warn(`Condition ${key} does not have a registered evaluation function.`)
-        }else{
-          if(compare) {
-            conditionResults.push(fn(argValue, compare))
-          }
-        }
-      })
-    }
-
-    conditionResults = conditionResults.filter(_ => _ !== undefined);
-    return conditionResults.includes(true) ? this.check === 'one' : conditionResults.every(_ => _);
+    conditionResults = conditionResults.filter(_ => _ !== undefined); // Remove any undefined (not needed for check.
+    return this.check === 'one' ?
+      conditionResults.includes(true) : // If check is explicitly 'one' see if any are true.
+      conditionResults.every(_ => _); // default check; makes sure all items are true.
 
   }
 

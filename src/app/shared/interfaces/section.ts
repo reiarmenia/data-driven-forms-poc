@@ -8,7 +8,7 @@ export interface ISection {
     style: 'list' | 'table';
     minEntries?: number;
     maxEntries?: number;
-  }
+  };
   questions: IQuestionGroup;
   shouldDisplay?: IStatements;
 

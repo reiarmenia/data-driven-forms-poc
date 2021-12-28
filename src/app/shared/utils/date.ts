@@ -5,14 +5,14 @@ export class DateUtils {
 
     let returnObj: string | Date;
 
-    if (typeof dateObj === 'string' && dateObj.startsWith('$today')){
+    if (typeof dateObj === 'string' && dateObj.startsWith('$today')) {
       returnObj = new Date();
     } else {
-      returnObj = new Date(dateObj)
+      returnObj = new Date(dateObj);
     }
 
     if (clearHours) {
-      returnObj.setHours(0,0,0,0);
+      returnObj.setHours(0, 0, 0, 0);
     }
 
     return returnObj;

@@ -39,9 +39,10 @@ export class SupportedLogicUtils {
   public static isTruthy(value: any, check: boolean) {
     if (!check) return undefined;
     return !!value;
+
   }
 
-  public static isFalsy(value: any, check: boolean){
+  public static isFalsy(value: any, check: boolean) {
     if (!check) return undefined;
     return !value;
   }
@@ -87,28 +88,32 @@ export class SupportedLogicUtils {
     return value.getTime() >= compare.getTime();
   }
 
-  public static isAgeGreater(value: Date | string, compare: number) {
-    value = DateUtils.normalizeDate(value, true)
+  public static isAgeGreaterThan(value: Date | string, compare: number) {
+    value = DateUtils.normalizeDate(value, true);
     const age = DateUtils.calculateAge(value);
     return age > compare;
   }
-  public static isAgeLess(value: Date | string, compare: number) {
-    value = DateUtils.normalizeDate(value, true)
+
+  public static isAgeLessThan(value: Date | string, compare: number) {
+    value = DateUtils.normalizeDate(value, true);
     const age = DateUtils.calculateAge(value);
     return age < compare;
   }
-  public static isAgeEqual(value: Date | string, compare: number) {
-    value = DateUtils.normalizeDate(value, true)
+
+  public static isAgeEqualTo(value: Date | string, compare: number) {
+    value = DateUtils.normalizeDate(value, true);
     const age = DateUtils.calculateAge(value);
     return age === compare;
   }
+
   public static isAgeGreaterOrEqual(value: Date | string, compare: number) {
-    value = DateUtils.normalizeDate(value, true)
+    value = DateUtils.normalizeDate(value, true);
     const age = DateUtils.calculateAge(value);
     return age >= compare;
   }
+
   public static isAgeLessOrEqual(value: Date | string, compare: number) {
-    value = DateUtils.normalizeDate(value, true)
+    value = DateUtils.normalizeDate(value, true);
     const age = DateUtils.calculateAge(value);
     return age < compare;
   }

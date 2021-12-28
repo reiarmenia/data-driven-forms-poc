@@ -19,7 +19,9 @@ export interface IQuestionValidation {
   isDateOn?: Date | string;
   isDateOnOrBefore?: Date | string;
   isDateOnOrAfter?: Date | string;
-  isAgeGreater?: number;
-  isAgeLess?: number;
-  isAgeEqual?: number;
+  isAgeGreaterThan?: number;
+  isAgeLessThan?: number;
+  isAgeEqualTo?: number;
+  isAgeGreaterOrEqual?: number;
+  isAgeLessOrEqual?: number;
 }
