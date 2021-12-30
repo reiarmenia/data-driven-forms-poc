@@ -1,0 +1,9 @@
+<ng-container *ngIf="this.config && this.control">
+  <div class="page-container">
+    <ng-container *ngFor="let section of this.config.sections">
+      <ng-container *ngIf="control.get(section.id) as sectionControl">
+        <app-section [config]="section" [control]="sectionControl"></app-section>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>

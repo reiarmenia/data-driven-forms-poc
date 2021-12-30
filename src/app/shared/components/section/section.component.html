@@ -1,11 +1,25 @@
 <ng-container *ngIf="this.config && this.control">
-
-  <div class="section-container">
-    <ng-container *ngFor="let question of this.questionsInOrder">
-      <ng-container *ngIf="question.config && question.control">
-        <app-question [control]="question.control" [config]="question.config"></app-question>
+  <div class="section-container" *ngIf="this.shouldAsk">
+    <ng-container *ngIf="!this.config.repeat; else repeat">
+      <ng-container *ngFor="let question of this.questionsInOrder">
+        <ng-container *ngIf="question.config && question.control">
+          <app-question [control]="question.control" [config]="question.config"></app-question>
+        </ng-container>
       </ng-container>
     </ng-container>
+    <ng-template #repeat>
+      <ng-container [ngSwitch]="this.config.repeat?.style">
+        <ng-container *ngSwitchCase="'table'">
+          table
+        </ng-container>
+        <ng-container *ngSwitchCase="'list'">
+          list
+        </ng-container>
+      </ng-container>
+    </ng-template>
   </div>
+</ng-container>
 
+<ng-container *ngIf="this.changeEvents">
+  <ng-container *ngIf="this.changeEvents | async"></ng-container>
 </ng-container>

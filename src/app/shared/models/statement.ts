@@ -8,6 +8,7 @@ import {AbstractControl} from '@angular/forms';
 export class Statement implements IStatement {
 
   public sibling: string;
+  public expectedParentLevel: number;
   public conditions?: IConditions;
   public customConditions?: ICustomConditions;
   public check?: 'one' | 'all';
@@ -15,6 +16,7 @@ export class Statement implements IStatement {
   constructor(statement: IStatement) {
 
     this.sibling = statement.sibling;
+    this.expectedParentLevel = statement.expectedParentLevel;
     this.conditions = statement.conditions;
     this.customConditions = statement.customConditions;
     this.check = statement.check;
@@ -25,18 +27,13 @@ export class Statement implements IStatement {
 
     let sibling: AbstractControl | null = null;
 
-    if (control.get(this.sibling)) {
-      sibling = control.get(this.sibling);
-    } else {
-      let check = control.parent;
-      while (check) {
-        if (check && check.get(this.sibling)) {
-          sibling = check.get(this.sibling);
-        } else {
-          check = check.parent || null;
-        }
-      }
+    let check: AbstractControl | null = control;
+    for(let i = 0; i < this.expectedParentLevel && check !== null; i++) {
+      check = check.parent;
     }
+
+    sibling = check?.get(this.sibling) ?? null;
+
 
     if (sibling === null) {
       console.warn(`Statement could not parse arg of ${sibling} on control: `, control);

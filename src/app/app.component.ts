@@ -17,7 +17,8 @@ export class AppComponent {
   constructor(
     private fb: FormBuilder
   ) {
-    this.appConfig = new Application(data as IApplication);
+    console.log('data', data);
+    this.appConfig = new Application((data as unknown) as IApplication);
     this.appForm = this.appConfig.getForm(null, this.fb, undefined);
     console.log('config', this.appConfig);
     console.log('form', this.appForm);

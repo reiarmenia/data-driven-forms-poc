@@ -15,7 +15,7 @@ export class DynamicFormsUtils {
     events.push(statements.getValueChanges(control).pipe(
       tap(() => {
 
-        if(statements.checkStatements(control, customConditions)) {
+        if(!statements.checkStatements(control, customConditions)) {
           if (!shouldRetain) {
             control.reset();
             control.markAsUntouched({onlySelf: false});

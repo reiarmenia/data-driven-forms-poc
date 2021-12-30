@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Section} from '../../models/section';
 import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
 import {Question} from '../../models/question';
+import {Observable, tap} from 'rxjs';
 
 @Component({
   selector: 'app-section',
@@ -14,6 +15,8 @@ export class SectionComponent implements OnInit {
   @Input() control?: FormGroup | FormArray | AbstractControl | null;
 
   public questionsInOrder?: {control: FormControl, config: Question}[];
+  public shouldAsk: boolean = true;
+  public changeEvents?: Observable<any>;
 
   constructor() { }
 
@@ -28,6 +31,14 @@ export class SectionComponent implements OnInit {
     }
 
     this.questionsInOrder = this.getQuestionsInOrder();
+    this.shouldAsk = this.config.getShouldAsk(this.control);
+    const tempEvents = this.config.changeEvents(this.control);
+    console.log(tempEvents);
+    if (tempEvents) {
+      this.changeEvents = this.config.changeEvents(this.control)?.pipe(
+        tap(() => this.shouldAsk = this.control ? this.config.getShouldAsk(this.control) : true)
+      );
+    }
 
   }
 

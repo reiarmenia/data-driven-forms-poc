@@ -65,6 +65,55 @@
             }
           },
           "questionOrder": ["id", "type", "label"]
+        },
+        {
+          "id": "options",
+          "repeat": {
+            "style": "list",
+            "minEntries": 1
+          },
+          "questions": {
+            "value": {
+              "id": "value",
+              "type": "number",
+              "label": {
+                "text": "Option Value"
+              },
+              "validation": {
+                "required": true
+              }
+            },
+            "display": {
+              "id": "display",
+              "type": "text",
+              "label": {
+                "text": "Option Display Text"
+              },
+              "validation": {
+                "required": true
+              }
+            }
+          },
+          "questionOrder": ["value", "display"],
+          "shouldAsk": {
+            "statements": [
+              {
+                "sibling": "baseData.type",
+                "expectedParentLevel": 1,
+                "conditions": {
+                  "valueMatches": "select"
+                }
+              },
+              {
+                "sibling": "baseData.type",
+                "expectedParentLevel": 1,
+                "conditions": {
+                  "valueMatches": "radio"
+                }
+              }
+            ],
+            "check": "one"
+          }
         }
       ]
     }

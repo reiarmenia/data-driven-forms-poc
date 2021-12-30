@@ -12,12 +12,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {QuestionComponent} from './components/question/question.component';
 import { SectionComponent } from './components/section/section.component';
+import { PageComponent } from './components/page/page.component';
 
 
 @NgModule({
   declarations: [
     QuestionComponent,
-    SectionComponent
+    SectionComponent,
+    PageComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { SectionComponent } from './components/section/section.component';
   ],
   exports: [
     QuestionComponent,
-    SectionComponent
+    SectionComponent,
+    PageComponent
   ]
 })
 export class SharedModule {
