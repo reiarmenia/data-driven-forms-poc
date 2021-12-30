@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IQuestion} from '../../interfaces/question';
 import {FormControl} from '@angular/forms';
+import {Question} from '../../models/question';
 
 @Component({
   selector: 'app-question',
@@ -9,7 +9,7 @@ import {FormControl} from '@angular/forms';
 })
 export class QuestionComponent implements OnInit {
 
-  @Input() config!: IQuestion;
+  @Input() config!: Question;
   @Input() control!: FormControl;
 
   constructor() {
@@ -17,11 +17,11 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.config) {
-      throw new TypeError('Question component must be passed a Question Configuration.');
+      throw new TypeError('Question component must be passed a Question Config.');
     }
 
     if (!this.control) {
-      throw new TypeError('Question component must be passed a FormControl');
+      throw new TypeError('Question component must be passed a Form Control');
     }
 
   }

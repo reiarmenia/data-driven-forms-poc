@@ -1,20 +1,32 @@
 import {ISection} from '../interfaces/section';
 import {Statements} from './statements';
 import {QuestionGroup} from './question-group';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {NormalizedValidator} from '../types/normalized-validator';
+import {ConditionsFunction} from '../types/conditions-function';
+import {combineLatest, Observable, tap} from 'rxjs';
+import {DynamicFormsUtils} from '../utils/dynamic-forms';
+import {Question} from './question';
 
 export class Section implements ISection{
 
   public id: string;
+  public sectionTitle?: string;
+
   public questions: QuestionGroup;
+  public questionOrder: string[];
+
   public repeat?: { style: "list" | "table"; minEntries?: number; maxEntries?: number };
   public shouldAsk?: Statements;
   public retainWhenNotAsked?: boolean;
 
   constructor(section: ISection) {
     this.id = section.id;
+    this.sectionTitle = section.sectionTitle;
+
     this.questions = new QuestionGroup(section.questions);
+    this.questionOrder = section.questionOrder;
+
     this.repeat = section.repeat;
     this.shouldAsk = section.shouldAsk ? new Statements(section.shouldAsk) : undefined;
     this.retainWhenNotAsked = section.retainWhenNotAsked;
@@ -34,12 +46,37 @@ export class Section implements ISection{
   }
 
   public formGroup(initialValue: any, fb: FormBuilder, customValidators?: Map<string, NormalizedValidator>): FormGroup {
-    // Todo: Get Cross Field Validators on all Questions.
     const controls = Object.entries(this.questions)
       .reduce((prev, curr) => ({
         ...prev,
-        [`${curr[0]}`]: curr[1].control(initialValue[curr[0]] ?? null, fb, customValidators)
-      }), {})
+        [`${curr[0]}`]: curr[1].control(initialValue ? initialValue[curr[0]] ?? null : null, fb, customValidators)
+      }), {});
+    // Todo: Get Cross Field Validators on all Questions.
     return new FormGroup(controls);
   }
+
+  public getShouldAsk(control: AbstractControl, customConditions?: Map<string, ConditionsFunction>): boolean {
+    if(!this.shouldAsk) return true;
+    return this.shouldAsk.checkStatements(control, customConditions);
+  }
+
+  public changeEvents(control: AbstractControl, customConditions?: Map<string, ConditionsFunction>): Observable<any> | undefined {
+    if (!this.shouldAsk) return undefined;
+    return DynamicFormsUtils.gatherChangeEvents(control, this.shouldAsk, this.retainWhenNotAsked, customConditions)
+  }
+
+  public getQuestionsChangeEvents(control: AbstractControl, customConditions?: Map<string, ConditionsFunction>): Observable<any> | undefined {
+    const questions = Object.entries(this.questions);
+    if(questions.every(([id, question]: [string, Question]) => !question.shouldAsk)) return undefined;
+    const changes = questions
+      .map(([_, question]: [string, Question]) => question)
+      .filter(_ => _.shouldAsk)
+      .map((question: Question) => {
+        const questionControl = control.get(question.id);
+        if (!questionControl) return undefined;
+        return question.changeEvents(questionControl as FormControl, customConditions)
+      }).filter(_ => _ !== undefined);
+    return changes.length > 0 ? combineLatest([...changes]) : undefined;
+  }
+
 }

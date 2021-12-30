@@ -1,1 +1,2 @@
-<!--<app-question [config]="this.questionTest" [control]="this.questionControl"></app-question>-->
+<app-section [config]="appConfig.pages[0].sections[0]" [control]="appForm.get('questionBuilder.baseData')"></app-section>
+<button (click)="this.printFormState()">Print Application Form State</button>

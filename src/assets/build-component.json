@@ -1,71 +1,72 @@
 {
-  "application": {
-      "pages": [
+  "id": "questionForm",
+  "description": "a form that lets you build a single question",
+  "pages": [
+    {
+      "id": "questionBuilder",
+      "pageTitle": "Build A Question",
+      "sections": [
         {
-          "id": "buildQuestion",
-          "form": [
-            {
-              "repeat": false,
-              "questions": [
+          "id": "baseData",
+          "questions": {
+            "id": {
+              "id": "id",
+              "type": "text",
+              "label": {
+                "text": "Question ID"
+              },
+              "validation": {
+                "required": true
+              }
+            },
+            "type": {
+              "id": "type",
+              "type": "select",
+              "label": {
+                "text": "Question Type"
+              },
+              "options": [
                 {
-                  "id": "id",
-                  "type": "text",
-                  "label": {
-                    "text": "Input ID"
-                  },
-                  "validation": {
-                    "required": true
-                  }
+                  "value": "text",
+                  "display": "Text Input"
                 },
                 {
-                  "id": "type",
-                  "type": "select",
-                  "label": {
-                    "text": "Input Type"
-                  },
-                  "validation": {
-                    "required": true
-                  },
-                  "options": [
-                    {
-                      "value": "text",
-                      "display": "Text Input"
-                    },
-                    {
-                      "value": "textarea",
-                      "display": "Text Area Input"
-                    },
-                    {
-                      "value": "number",
-                      "display": "Number Input"
-                    },
-                    {
-                      "value": "select",
-                      "display": "Select Input"
-                    },
-                    {
-                      "value": "checkbox",
-                      "display": "Checkbox Input"
-                    },
-                    {
-                      "value": "date",
-                      "display": "Date Input"
-                    },
-                    {
-                      "value": "radio",
-                      "display": "Radio Input"
-                    }
-                  ]
+                  "value": "textarea",
+                  "display": "Text Area Input"
+                },
+                {
+                  "value": "number",
+                  "display": "Number Input"
+                },
+                {
+                  "value": "select",
+                  "display": "Select Input"
+                },
+                {
+                  "value": "checkbox",
+                  "display": "Checkbox Input"
+                },
+                {
+                  "value": "date",
+                  "display": "Date Input"
+                },
+                {
+                  "value": "radio",
+                  "display": "Radio Input"
                 }
-              ],
-              "display": "always"
+              ]
+            },
+            "label": {
+              "id": "label",
+              "type": "text",
+              "label": {
+                "text": "Question Label"
+              }
             }
-          ]
+          },
+          "questionOrder": ["id", "type", "label"]
         }
       ]
-  },
-  "meta": {
-    "applicationId": "1",
-    "description": "A form that provides all the inputs to generate a Question JSON"
-  }
+    }
+  ]
 }

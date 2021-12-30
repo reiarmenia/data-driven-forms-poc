@@ -1,0 +1,11 @@
+<ng-container *ngIf="this.config && this.control">
+
+  <div class="section-container">
+    <ng-container *ngFor="let question of this.questionsInOrder">
+      <ng-container *ngIf="question.config && question.control">
+        <app-question [control]="question.control" [config]="question.config"></app-question>
+      </ng-container>
+    </ng-container>
+  </div>
+
+</ng-container>

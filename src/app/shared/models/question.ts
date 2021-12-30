@@ -8,6 +8,7 @@ import {NormalizedValidator} from '../types/normalized-validator';
 import {BASE_VALIDATORS_MAP} from '../maps/validators';
 import {ConditionsFunction} from '../types/conditions-function';
 import {combineLatest, Observable, tap} from 'rxjs';
+import {DynamicFormsUtils} from '../utils/dynamic-forms';
 
 export class Question implements IQuestion {
 
@@ -41,15 +42,15 @@ export class Question implements IQuestion {
 
     const validatorMap: Map<string, NormalizedValidator> = new Map<string, NormalizedValidator>([
       ...BASE_VALIDATORS_MAP,
-      ...(customValidators ? customValidators : [])
+      ...(customValidators ?? [])
     ]);
 
     const validators: ValidatorFn[] = [];
 
     if (this.validation || this.customValidation) {
       Object.entries({
-        ...(this.validation ? this.validation : {}),
-        ...(this.customValidation ? this.customValidation : {})
+        ...(this.validation ??  {}),
+        ...(this.customValidation ?? {})
       }) // Combine Validation & Custom Validation Objects and Get all Entries
         .forEach(([key, value]: [string, any]) => { // Iterate over entries with key & value;
           const normalizedValidator = validatorMap.get(key);
@@ -72,22 +73,12 @@ export class Question implements IQuestion {
     return this.shouldAsk.checkStatements(control, customConditions);
   }
 
-  public changeEvents(control: FormControl, customConditions?: Map<string, ConditionsFunction>): Observable<any> | undefined {
-
-    const events: Observable<any>[] = [];
-
-    if (this.shouldAsk) {
-      events.push(this.shouldAsk.getValueChanges(control).pipe(
-        tap(() => {
-          if (!this.getShouldAsk(control, customConditions) && !this.retainWhenNotAsked){
-            control.setValue(null);
-          }
-        })
-      ))
-    }
-
-    return events.length > 0 ? combineLatest([...events]) : undefined;
-
+  public changeEvents(
+    control: FormControl,
+    customConditions?: Map<string, ConditionsFunction>
+  ): Observable<any> | undefined {
+    if (!this.shouldAsk) return undefined;
+    return DynamicFormsUtils.gatherChangeEvents(control, this.shouldAsk, this.retainWhenNotAsked, customConditions)
   }
 
 }

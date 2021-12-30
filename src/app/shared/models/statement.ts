@@ -49,15 +49,15 @@ export class Statement implements IStatement {
 
     const conditionsMap = new Map<string, ConditionsFunction>([
       ...BASE_CONDITIONS_MAP,
-      ...(customConditions ? customConditions : [])
+      ...(customConditions ?? [])
     ]);
 
     let conditionResults: (boolean | undefined)[] = [];
 
     if (this.conditions || this.customConditions) {
       Object.entries({
-        ...(this.conditions ? this.conditions : {}),
-        ...(this.customConditions ? this.customConditions : {})
+        ...(this.conditions ?? {}),
+        ...(this.customConditions ?? {})
       }) // Combine conditions and custom conditions and get their entries.
         .forEach(([key, compareValue]: [string, any]) => { // Iterate over entries with key and compare value.
           const conditionFunction = conditionsMap.get(key);

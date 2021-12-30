@@ -2,18 +2,18 @@
 
   <ng-container [ngSwitch]="this.config.type">
     <ng-container *ngSwitchCase="'checkbox'">
-      <mat-checkbox [formControl]="this.control" [labelPosition]="this.config.label?.position ?? 'after'">
+      <mat-checkbox [formControl]="this.control" [labelPosition]="this.config.label?.position ?? 'after'" class="question-content">
         {{this.config.label?.text ?? ''}}
       </mat-checkbox>
     </ng-container>
     <ng-container *ngSwitchCase="'radio'">
-      <mat-radio-group [formControl]="this.control" style="display: block;">
+      <mat-radio-group [formControl]="this.control" style="display: block;" class="question-content">
         <mat-radio-button *ngFor="let option of (this.config.options ?? [])"
-                          [value]="option.value">{{option.display}}</mat-radio-button>
+                          [value]="option.value" class="question-content">{{option.display}}</mat-radio-button>
       </mat-radio-group>
     </ng-container>
     <ng-container *ngSwitchDefault>
-      <mat-form-field>
+      <mat-form-field class="question-content">
         <mat-label *ngIf="this.config.label">{{this.config.label.text}}</mat-label>
         <ng-container [ngSwitch]="this.config.type">
           <textarea *ngSwitchCase="'textarea'" [formControl]="this.control" matInput></textarea>

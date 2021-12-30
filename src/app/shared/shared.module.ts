@@ -11,11 +11,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {QuestionComponent} from './components/question/question.component';
+import { SectionComponent } from './components/section/section.component';
 
 
 @NgModule({
   declarations: [
-    QuestionComponent
+    QuestionComponent,
+    SectionComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import {QuestionComponent} from './components/question/question.component';
     MatInputModule
   ],
   exports: [
-    QuestionComponent
+    QuestionComponent,
+    SectionComponent
   ]
 })
 export class SharedModule {

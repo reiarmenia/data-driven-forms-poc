@@ -4,9 +4,12 @@ import {IStatements} from './statments';
 export interface IPage {
 
   id: string;
+  pageTitle?: string;
 
   sections: ISection[];
-  order?: number;
-  shouldDisplay?: IStatements;
+
+  shouldAsk?: IStatements;
+  retainWhenNotAsked?: boolean;
+
 
 }
