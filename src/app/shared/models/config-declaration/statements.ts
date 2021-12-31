@@ -1,8 +1,8 @@
-import {IStatements} from '../interfaces/statments';
+import {IStatements} from '../../interfaces/config-declaration/statments';
 import {Statement} from './statement';
 import {AbstractControl} from '@angular/forms';
 import {combineLatest} from 'rxjs';
-import {ConditionsFunction} from '../types/conditions-function';
+import {ConditionsFunction} from '../../types/conditions-function';
 
 export class Statements implements IStatements {
   public check?: 'one' | 'all';

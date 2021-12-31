@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
-import {Page} from '../../models/page';
+import {Page} from '../../models/config-declaration/page';
 
 @Component({
   selector: 'app-page',

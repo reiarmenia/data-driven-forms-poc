@@ -1,0 +1,9 @@
+<ng-container *ngIf="this.control && this.questions && this.questionOrder && this.questionList">
+
+  <ng-container *ngFor="let question of this.questionList">
+    <ng-container *ngIf="question.config && question.control">
+      <app-question [control]="question.control" [config]="question.config"></app-question>
+    </ng-container>
+  </ng-container>
+
+</ng-container>

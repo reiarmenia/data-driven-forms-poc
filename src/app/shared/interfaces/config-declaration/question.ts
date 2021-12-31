@@ -13,6 +13,7 @@ export interface IQuestion {
 
   label?: {
     text: string;
+    shortText?: string;
     position?: 'before' | 'after';
   };
 

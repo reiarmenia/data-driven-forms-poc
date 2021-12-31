@@ -1,0 +1,13 @@
+<ng-container *ngIf="this.config && this.control">
+  <div class="list-item card mat-card">
+    <div class="list-item-content">
+      <div class="list-item-title" *ngIf="this.config.repeat?.itemName">
+        {{this.decodeItemName()}}
+      </div>
+      <app-question-group [control]="this.control" [questions]="this.config.questions"
+                          [questionOrder]="this.config.questionOrder">
+      </app-question-group>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-container>

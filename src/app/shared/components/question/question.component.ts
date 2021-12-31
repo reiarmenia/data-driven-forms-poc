@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Question} from '../../models/question';
+import {Question} from '../../models/config-declaration/question';
 
 @Component({
   selector: 'app-question',

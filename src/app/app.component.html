@@ -1,3 +1,21 @@
-<app-page [config]="appConfig.pages[0]" [control]="appForm.get('questionBuilder')"></app-page>
-<!--<app-section [config]="appConfig.pages[0].sections[0]" [control]="appForm.get('questionBuilder.baseData')"></app-section>-->
-<button (click)="this.printFormState()">Print Application Form State</button>
+<div class="app-container">
+  <div class="form-area">
+    <app-page [config]="appConfig.pages[0]" [control]="appForm.get('questionBuilder')"></app-page>
+    <button class="generate-button" (click)="this.generateField()" mat-stroked-button>Generate Field</button>
+  </div>
+  <div class="result-area">
+    <div class="field-result">
+      <ng-container *ngIf="this.resultControl && this.result; else noGeneratedField">
+        <app-question [control]="this.resultControl" [config]="this.result"></app-question>
+      </ng-container>
+    </div>
+    <div class="json-result">
+      <pre>
+        <code *ngIf="this.result; else noGeneratedJson">{{this.result | json}}</code>
+      </pre>
+    </div>
+    <ng-template #noGeneratedField>You have not yet generated a field, fill out the form.</ng-template>
+    <ng-template #noGeneratedJson>{{'{}'}}</ng-template>
+  </div>
+</div>
+

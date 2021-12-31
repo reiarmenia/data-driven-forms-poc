@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import data from '../assets/build-component.json'
-import {Application} from './shared/models/application';
-import {IApplication} from './shared/interfaces/application';
+import {Application} from './shared/models/config-declaration/application';
+import {IApplication} from './shared/interfaces/config-declaration/application';
+import {Question} from './shared/models/config-declaration/question';
+import {IQuestionPackage} from './shared/interfaces/utility/question-package';
+import {IQuestion} from './shared/interfaces/config-declaration/question';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +17,40 @@ export class AppComponent {
   public appConfig: Application;
   public appForm: FormGroup;
 
+  public result?: Question;
+  public resultControl?: FormControl;
+
+
   constructor(
     private fb: FormBuilder
   ) {
     console.log('data', data);
     this.appConfig = new Application((data as unknown) as IApplication);
     this.appForm = this.appConfig.getForm(null, this.fb, undefined);
-    console.log('config', this.appConfig);
-    console.log('form', this.appForm);
   }
 
-  public printFormState() {
-    console.log('application form state', this.appForm);
-    console.log('application form value', this.appForm.getRawValue())
+  public generateField() {
+    if (!this.appForm.valid) {
+      this.appForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.appForm.getRawValue().questionBuilder;
+    const validators = formValue.validation;
+
+    console.log(formValue)
+
+    const temp: IQuestion = {
+      id: formValue.baseData.id,
+      type: formValue.baseData.type,
+
+      label: formValue.baseData.label ? {text: formValue.baseData.label} : undefined,
+      options: formValue.options && formValue.options.length > 0 ? formValue.options : undefined,
+      validation:formValue.baseData.addValidators ? formValue.validation : undefined,
+    }
+
+    this.result = new Question(temp);
+    this.resultControl = this.result.control(null, this.fb, undefined);
+
   }
 }

@@ -2,7 +2,7 @@
 
   <ng-container [ngSwitch]="this.config.type">
     <ng-container *ngSwitchCase="'checkbox'">
-      <mat-checkbox [formControl]="this.control" [labelPosition]="this.config.label?.position ?? 'after'" class="question-content">
+      <mat-checkbox [formControl]="this.control" [labelPosition]="this.config.label?.position ?? 'after'" class="question-content" color="primary">
         {{this.config.label?.text ?? ''}}
       </mat-checkbox>
     </ng-container>
@@ -11,6 +11,14 @@
         <mat-radio-button *ngFor="let option of (this.config.options ?? [])"
                           [value]="option.value" class="question-content">{{option.display}}</mat-radio-button>
       </mat-radio-group>
+    </ng-container>
+    <ng-container *ngSwitchCase="'date'">
+      <mat-form-field class="question-content">
+        <mat-label *ngIf="this.config.label">{{this.config.label.text}}</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </ng-container>
     <ng-container *ngSwitchDefault>
       <mat-form-field class="question-content">
@@ -21,11 +29,6 @@
             <mat-option *ngFor="let option of (this.config.options ?? [])"
                         [value]="option.value">{{option.display}}</mat-option>
           </mat-select>
-          <ng-container *ngSwitchCase="'date'">
-            <input [matDatepicker]="picker" matInput>
-            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </ng-container>
           <input *ngSwitchDefault [formControl]="control" [type]="this.config.type" matInput/>
         </ng-container>
       </mat-form-field>

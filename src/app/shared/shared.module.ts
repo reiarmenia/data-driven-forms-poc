@@ -13,13 +13,19 @@ import {MatInputModule} from '@angular/material/input';
 import {QuestionComponent} from './components/question/question.component';
 import { SectionComponent } from './components/section/section.component';
 import { PageComponent } from './components/page/page.component';
+import { QuestionGroupComponent } from './components/question-group/question-group.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 @NgModule({
   declarations: [
     QuestionComponent,
     SectionComponent,
-    PageComponent
+    PageComponent,
+    QuestionGroupComponent,
+    ListItemComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +38,9 @@ import { PageComponent } from './components/page/page.component';
     MatSliderModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatNativeDateModule,
   ],
   exports: [
     QuestionComponent,

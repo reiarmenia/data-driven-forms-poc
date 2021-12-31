@@ -4,13 +4,15 @@ import {IStatements} from './statments';
 export interface ISection {
 
   id: string;
-  sectionTitle?: string;
+  title?: string;
+  border?: boolean;
 
   questions: IQuestionGroup;
   questionOrder: string[];
 
   repeat?: {
     style: 'list' | 'table';
+    itemName?: string;
     minEntries?: number;
     maxEntries?: number;
   };

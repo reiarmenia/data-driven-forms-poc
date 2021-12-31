@@ -1,28 +1,35 @@
-import {ISection} from '../interfaces/section';
+import {ISection} from '../../interfaces/config-declaration/section';
 import {Statements} from './statements';
 import {QuestionGroup} from './question-group';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {NormalizedValidator} from '../types/normalized-validator';
-import {ConditionsFunction} from '../types/conditions-function';
+import {NormalizedValidator} from '../../types/normalized-validator';
+import {ConditionsFunction} from '../../types/conditions-function';
 import {combineLatest, Observable, tap} from 'rxjs';
-import {DynamicFormsUtils} from '../utils/dynamic-forms';
+import {DynamicFormsUtils} from '../../utils/dynamic-forms';
 import {Question} from './question';
 
 export class Section implements ISection{
 
   public id: string;
-  public sectionTitle?: string;
+  public title?: string;
+  public border?: boolean;
 
   public questions: QuestionGroup;
   public questionOrder: string[];
 
-  public repeat?: { style: "list" | "table"; minEntries?: number; maxEntries?: number };
+  public repeat?: {
+    style: "list" | "table";
+    itemName?: string;
+    minEntries?: number;
+    maxEntries?: number
+  };
   public shouldAsk?: Statements;
   public retainWhenNotAsked?: boolean;
 
   constructor(section: ISection) {
     this.id = section.id;
-    this.sectionTitle = section.sectionTitle;
+    this.title = section.title;
+    this.border = section.border;
 
     this.questions = new QuestionGroup(section.questions);
     this.questionOrder = section.questionOrder;

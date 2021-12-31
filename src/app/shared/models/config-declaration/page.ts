@@ -1,11 +1,11 @@
-import {IPage} from '../interfaces/page';
+import {IPage} from '../../interfaces/config-declaration/page';
 import {Statements} from './statements';
 import {Section} from './section';
 import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {NormalizedValidator} from '../types/normalized-validator';
-import {ConditionsFunction} from '../types/conditions-function';
+import {NormalizedValidator} from '../../types/normalized-validator';
+import {ConditionsFunction} from '../../types/conditions-function';
 import {Observable} from 'rxjs';
-import {DynamicFormsUtils} from '../utils/dynamic-forms';
+import {DynamicFormsUtils} from '../../utils/dynamic-forms';
 
 export class Page implements IPage {
   public id: string;

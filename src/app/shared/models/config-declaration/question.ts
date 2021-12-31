@@ -1,20 +1,20 @@
-import {IQuestion} from '../interfaces/question';
-import {IQuestionOption} from '../interfaces/question-option';
-import {IQuestionValidation} from '../interfaces/question-validation';
+import {IQuestion} from '../../interfaces/config-declaration/question';
+import {IQuestionOption} from '../../interfaces/config-declaration/question-option';
+import {IQuestionValidation} from '../../interfaces/config-declaration/question-validation';
 import {Statements} from './statements';
 import {AbstractControl, FormBuilder, FormControl, ValidatorFn} from '@angular/forms';
-import {ICustomValidation} from '../interfaces/custom-validation';
-import {NormalizedValidator} from '../types/normalized-validator';
-import {BASE_VALIDATORS_MAP} from '../maps/validators';
-import {ConditionsFunction} from '../types/conditions-function';
+import {ICustomValidation} from '../../interfaces/config-declaration/custom-validation';
+import {NormalizedValidator} from '../../types/normalized-validator';
+import {BASE_VALIDATORS_MAP} from '../../maps/validators';
+import {ConditionsFunction} from '../../types/conditions-function';
 import {combineLatest, Observable, tap} from 'rxjs';
-import {DynamicFormsUtils} from '../utils/dynamic-forms';
+import {DynamicFormsUtils} from '../../utils/dynamic-forms';
 
 export class Question implements IQuestion {
 
   public id: string;
   public type: 'text' | 'textarea' | 'number' | 'select' | 'checkbox' | 'date' | 'radio';
-  public label?: { text: string; position?: 'before' | 'after' };
+  public label?: { text: string; shortText?: string; position?: 'before' | 'after' };
   public options?: IQuestionOption[];
   public shouldAsk?: Statements;
   public retainWhenNotAsked?: boolean;
@@ -79,6 +79,13 @@ export class Question implements IQuestion {
   ): Observable<any> | undefined {
     if (!this.shouldAsk) return undefined;
     return DynamicFormsUtils.gatherChangeEvents(control, this.shouldAsk, this.retainWhenNotAsked, customConditions)
+  }
+
+  public decodeValue(value: any) {
+    if (this.options && (this.type === 'radio' || this.type === 'select')) {
+      return this.options.filter(_ => _.value === value)[0]?.display ?? value;
+    }
+    return value;
   }
 
 }

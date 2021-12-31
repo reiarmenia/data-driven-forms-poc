@@ -1,22 +1,40 @@
 <ng-container *ngIf="this.config && this.control">
-  <div class="section-container" *ngIf="this.shouldAsk">
-    <ng-container *ngIf="!this.config.repeat; else repeat">
-      <ng-container *ngFor="let question of this.questionsInOrder">
-        <ng-container *ngIf="question.config && question.control">
-          <app-question [control]="question.control" [config]="question.config"></app-question>
-        </ng-container>
+  <div class="section-container" [ngClass]="{'section-border': this.config.border}" *ngIf="this.shouldAsk">
+    <div class="section-content">
+      <h3 class="section-title" *ngIf="this.config.title">{{this.config.title}}</h3>
+      <ng-container *ngIf="!this.config.repeat; else repeat">
+        <app-question-group [control]="this.control" [questions]="this.config.questions"
+                            [questionOrder]="this.config.questionOrder">
+        </app-question-group>
       </ng-container>
-    </ng-container>
-    <ng-template #repeat>
-      <ng-container [ngSwitch]="this.config.repeat?.style">
-        <ng-container *ngSwitchCase="'table'">
-          table
+      <ng-template #repeat>
+        <ng-container *ngIf="this.getListControls() as listControls">
+          <ng-container *ngIf="listControls.length > 0; else noItems">
+            <ng-container [ngSwitch]="this.config.repeat?.style">
+              <!--        TODO: make table view-->
+              <ng-container *ngSwitchCase="'table'">
+                table
+              </ng-container>
+              <ng-container *ngSwitchCase="'list'">
+                <div *ngFor="let listControl of listControls; let i = index">
+                  <app-list-item [control]="listControl" [config]="this.config" [index]="i">
+                    <div class="list-buttons">
+                      <button class="list-delete-button" mat-button color="warn" (click)="this.deleteItem(i)">Delete</button>
+                    </div>
+                  </app-list-item>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #noItems>
+            No Items in the list add one.
+          </ng-template>
+          <div class="list-buttons">
+            <button class="list-add-button btn btn-primary" mat-button color="primary" (click)="this.addItemToList()">Add Item</button>
+          </div>
         </ng-container>
-        <ng-container *ngSwitchCase="'list'">
-          list
-        </ng-container>
-      </ng-container>
-    </ng-template>
+      </ng-template>
+    </div>
   </div>
 </ng-container>
 

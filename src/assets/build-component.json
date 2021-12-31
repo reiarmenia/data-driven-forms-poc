@@ -54,7 +54,10 @@
                   "value": "radio",
                   "display": "Radio Input"
                 }
-              ]
+              ],
+              "validation": {
+                "required": true
+              }
             },
             "label": {
               "id": "label",
@@ -62,14 +65,24 @@
               "label": {
                 "text": "Question Label"
               }
+            },
+            "addValidators": {
+              "id": "addValidators",
+              "type": "checkbox",
+              "label": {
+                "text": "Add Validators?"
+              }
             }
           },
-          "questionOrder": ["id", "type", "label"]
+          "questionOrder": ["id", "type", "label", "addValidators"]
         },
         {
           "id": "options",
+          "title": "Options",
+          "border": true,
           "repeat": {
             "style": "list",
+            "itemName": "Option %i",
             "minEntries": 1
           },
           "questions": {
@@ -113,6 +126,226 @@
               }
             ],
             "check": "one"
+          }
+        },
+        {
+          "id":  "validation",
+          "title": "Validators",
+          "border": true,
+          "shouldAsk": {
+            "statements": [
+              {
+                "sibling": "baseData.addValidators",
+                "expectedParentLevel": 1,
+                "conditions": {
+                  "valueMatches": true
+                }
+              }
+            ]
+          },
+          "questionOrder": [
+            "min",
+            "max",
+            "required",
+            "requiredTrue",
+            "minLength",
+            "maxLength",
+            "pattern",
+            "isGreaterThan",
+            "isLessThan",
+            "isEqualTo",
+            "isLessOrEqual",
+            "isGreaterOrEqual",
+            "isTruthy",
+            "isFalsy",
+            "isDate",
+            "isDateBefore",
+            "isDateAfter",
+            "isDateOn",
+            "isDateOnOrBefore",
+            "isDateOnOrAfter",
+            "isAgeGreaterThan",
+            "isAgeLessThan",
+            "isAgeEqualTo",
+            "isAgeGreaterOrEqual",
+            "isAgeLessOrEqual"
+          ],
+          "questions": {
+            "min": {
+              "id": "min",
+              "type": "number",
+              "label": {
+                "text": "min"
+              }
+            },
+            "max": {
+              "id": "max",
+              "type": "number",
+              "label": {
+                "text": "max"
+              }
+            },
+            "required": {
+              "id": "required",
+              "type": "checkbox",
+              "label": {
+                "text": "required"
+              }
+            },
+            "requiredTrue": {
+              "id": "requiredTrue",
+              "type": "checkbox",
+              "label": {
+                "text": "requiredTrue"
+              }
+            },
+            "minLength": {
+              "id": "minLength",
+              "type": "number",
+              "label": {
+                "text": "minLength"
+              }
+            },
+            "maxLength": {
+              "id": "maxLength",
+              "type": "number",
+              "label": {
+                "text": "maxLength"
+              }
+            },
+            "pattern": {
+              "id": "pattern",
+              "type": "text",
+              "label": {
+                "text": "pattern"
+              }
+            },
+            "isGreaterThan": {
+              "id": "isGreaterThan",
+              "type": "number",
+              "label": {
+                "text": "isGreaterThan"
+              }
+            },
+            "isLessThan": {
+              "id": "isLessThan",
+              "type": "number",
+              "label": {
+                "text": "isLessThan"
+              }
+            },
+            "isEqualTo": {
+              "id": "isEqualTo",
+              "type": "number",
+              "label": {
+                "text": "isEqualTo"
+              }
+            },
+            "isLessOrEqual": {
+              "id": "isLessOrEqual",
+              "type": "number",
+              "label": {
+                "text": "isLessOrEqual"
+              }
+            },
+            "isGreaterOrEqual": {
+              "id": "isGreaterOrEqual",
+              "type": "number",
+              "label": {
+                "text": "isGreaterOrEqual"
+              }
+            },
+            "isTruthy": {
+              "id": "isTruthy",
+              "type": "checkbox",
+              "label": {
+                "text": "isTruthy"
+              }
+            },
+            "isFalsy": {
+              "id": "isFalsy",
+              "type": "checkbox",
+              "label": {
+                "text": "isFalsy"
+              }
+            },
+            "isDate": {
+              "id": "isDate",
+              "type": "checkbox",
+              "label": {
+                "text": "isDate"
+              }
+            },
+            "isDateBefore": {
+              "id": "isDateBefore",
+              "type": "date",
+              "label": {
+                "text": "isDateBefore"
+              }
+            },
+            "isDateAfter": {
+              "id": "isDateAfter",
+              "type": "date",
+              "label": {
+                "text": "isDateAfter"
+              }
+            },
+            "isDateOn": {
+              "id": "isDateOn",
+              "type": "date",
+              "label": {
+                "text": "isDateOn"
+              }
+            },
+            "isDateOnOrBefore": {
+              "id": "isDateOnOrBefore",
+              "type": "date",
+              "label": {
+                "text": "isDateOnOrBefore"
+              }
+            },
+            "isDateOnOrAfter": {
+              "id": "isDateOnOrAfter",
+              "type": "date",
+              "label": {
+                "text": "isDateOnOrAfter"
+              }
+            },
+            "isAgeGreaterThan": {
+              "id": "isAgeGreaterThan",
+              "type": "number",
+              "label": {
+                "text": "isAgeGreaterThan"
+              }
+            },
+            "isAgeLessThan": {
+              "id": "isAgeLessThan",
+              "type": "number",
+              "label": {
+                "text": "isAgeLessThan"
+              }
+            },
+            "isAgeEqualTo": {
+              "id": "isAgeEqualTo",
+              "type": "number",
+              "label": {
+                "text": "isAgeEqualTo"
+              }
+            },
+            "isAgeGreaterOrEqual": {
+              "id": "isAgeGreaterOrEqual",
+              "type": "number",
+              "label": {
+                "text": "isAgeGreaterOrEqual"
+              }
+            },
+            "isAgeLessOrEqual": {
+              "id": "isAgeLessOrEqual",
+              "type": "number",
+              "label": {
+                "text": "isAgeLessOrEqual"
+              }
+            }
           }
         }
       ]

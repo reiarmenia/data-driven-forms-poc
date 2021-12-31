@@ -1,8 +1,8 @@
-import {IStatement} from '../interfaces/statement';
-import {IConditions} from '../interfaces/conditions';
-import {ICustomConditions} from '../interfaces/custom-conditions';
-import {ConditionsFunction} from '../types/conditions-function';
-import {BASE_CONDITIONS_MAP} from '../maps/conditions';
+import {IStatement} from '../../interfaces/config-declaration/statement';
+import {IConditions} from '../../interfaces/config-declaration/conditions';
+import {ICustomConditions} from '../../interfaces/config-declaration/custom-conditions';
+import {ConditionsFunction} from '../../types/conditions-function';
+import {BASE_CONDITIONS_MAP} from '../../maps/conditions';
 import {AbstractControl} from '@angular/forms';
 
 export class Statement implements IStatement {

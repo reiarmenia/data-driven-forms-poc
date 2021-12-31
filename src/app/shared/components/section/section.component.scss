@@ -4,3 +4,36 @@
   flex-direction: column;
   gap: .75rem;
 }
+
+.list-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.list-add-button {
+
+}
+
+.list-delete-button {
+
+}
+
+.list-edit-button {
+
+}
+
+.section-container {
+  &.section-border {
+    border: 1px black solid;
+    border-radius: .25rem;
+  }
+}
+
+.section-content {
+  margin: .5rem;
+}
+
+.list-item {
+  margin-block: .5rem;
+}
