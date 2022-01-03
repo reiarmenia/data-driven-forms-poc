@@ -2,6 +2,12 @@
   <div class="form-area">
     <app-page [config]="appConfig.pages[0]" [control]="appForm.get('questionBuilder')"></app-page>
     <button class="generate-button" (click)="this.generateField()" mat-stroked-button>Generate Field</button>
+    <button class="generate-button" (click)="this.showJson = !this.showJson" mat-raised-button>
+      {{this.showJson ? 'Hide' : 'Show'}} JSON for this form.
+    </button>
+    <div *ngIf="this.showJson" style="border: 1px darkgrey solid; border-radius: .5rem;">
+      <pre><code>{{this.appJson | json}}</code></pre>
+    </div>
   </div>
   <div class="result-area">
     <div class="field-result">

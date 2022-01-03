@@ -14,18 +14,20 @@ import {IQuestion} from './shared/interfaces/config-declaration/question';
 })
 export class AppComponent {
 
-  public appConfig: Application;
+  public appJson = (data as unknown);
+
+  public appConfig: Application = new Application(this.appJson as IApplication);
   public appForm: FormGroup;
 
   public result?: Question;
   public resultControl?: FormControl;
 
+  public showJson: boolean = false;
+
 
   constructor(
     private fb: FormBuilder
   ) {
-    console.log('data', data);
-    this.appConfig = new Application((data as unknown) as IApplication);
     this.appForm = this.appConfig.getForm(null, this.fb, undefined);
   }
 
